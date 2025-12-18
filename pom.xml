@@ -10,6 +10,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>calculator</module>
+        <module>quiz-core</module>
     </modules>
 
     <properties>
