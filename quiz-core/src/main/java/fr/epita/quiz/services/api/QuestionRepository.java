@@ -5,10 +5,7 @@ import fr.epita.quiz.services.api.exceptions.PersistenceException;
 
 import java.util.List;
 
-public interface QuestionRepository {
-
-
-    void create(Question question) throws PersistenceException;
+public interface QuestionRepository extends Repository<Question> {
 
     List<Question> findByTitle(String title) throws PersistenceException;
 

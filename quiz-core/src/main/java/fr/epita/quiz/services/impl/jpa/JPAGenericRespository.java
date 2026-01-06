@@ -1,11 +1,11 @@
 package fr.epita.quiz.services.impl.jpa;
 
-import fr.epita.quiz.datamodel.Question;
+import fr.epita.quiz.services.api.Repository;
 import fr.epita.quiz.services.api.exceptions.PersistenceException;
 import jakarta.transaction.Transactional;
 import org.hibernate.SessionFactory;
 
-public class JPAGenericRespository<T> {
+public abstract class JPAGenericRespository<T> implements Repository<T> {
 
     protected final SessionFactory sessionFactory;
 
@@ -14,11 +14,13 @@ public class JPAGenericRespository<T> {
     }
 
     @Transactional
+    @Override
     public void create(T instance) throws PersistenceException {
         this.sessionFactory.getCurrentSession().persist(instance);
     }
 
     @Transactional
+    @Override
     public void update(T instance) throws PersistenceException {
         try {
             this.sessionFactory.getCurrentSession().merge(instance);
@@ -31,7 +33,15 @@ public class JPAGenericRespository<T> {
     }
 
     @Transactional
+    @Override
     public void delete(T instance) throws PersistenceException {
         this.sessionFactory.getCurrentSession().remove(instance);
     }
+
+
+    @Override
+    public T findById(Class<T> expectedType, Object id) throws PersistenceException {
+        return sessionFactory.getCurrentSession().find(expectedType, id);
+    }
+
 }

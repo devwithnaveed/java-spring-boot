@@ -46,6 +46,21 @@ public class JDBCQuestionRepository implements QuestionRepository {
         LOGGER.debug("question created");
     }
 
+    @Override
+    public void update(Question instance) throws PersistenceException {
+
+    }
+
+    @Override
+    public void delete(Question instance) throws PersistenceException {
+
+    }
+
+    @Override
+    public Question findById(Class<Question> expectedType, Object id) throws PersistenceException {
+        return null;
+    }
+
     public List<Question> findByTitle(String title) throws PersistenceException {
         LOGGER.debug("findByTitle {}", title);
 

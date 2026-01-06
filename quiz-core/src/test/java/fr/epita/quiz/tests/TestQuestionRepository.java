@@ -71,5 +71,18 @@ public class TestQuestionRepository {
             Assertions.assertEquals(question.getTitle(), resultSet.getString("title"));
         });
     }
+    @Test
+    public void testQuestionRepository_findById() throws SQLException, PersistenceException {
+        //given
+        Question question = new Question("Test");
+        questionRepository.create(question);
+        sessionFactory.getCurrentSession().flush(); // Force Hibernate to write to DB
+
+        //when
+        Question foundQuestion = questionRepository.findById(Question.class, question.getId());
+
+
+        Assertions.assertNotNull(foundQuestion);
+    }
 
 }
