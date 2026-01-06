@@ -1,4 +1,4 @@
-package fr.epita.quiz.services.conf;
+package fr.epita.quiz.services.api.conf;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;

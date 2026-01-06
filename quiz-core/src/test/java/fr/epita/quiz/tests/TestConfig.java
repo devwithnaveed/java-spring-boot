@@ -1,25 +1,24 @@
 package fr.epita.quiz.tests;
 
-import fr.epita.quiz.services.JDBCQuestionRepository;
-import fr.epita.quiz.services.QuestionRepository;
-import fr.epita.quiz.services.conf.DBProperties;
+import fr.epita.quiz.services.impl.jpa.JPAQuestionRepository;
+import fr.epita.quiz.services.api.QuestionRepository;
+import fr.epita.quiz.services.api.conf.DBProperties;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.annotation.*;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.orm.jpa.hibernate.HibernateTransactionManager;
 import org.springframework.orm.jpa.hibernate.LocalSessionFactoryBean;
 
 import javax.sql.DataSource;
-import java.sql.SQLException;
 import java.util.Properties;
 
 @Configuration
 @PropertySource("classpath:application.properties")
 @EnableConfigurationProperties(DBProperties.class)
+@EnableTransactionManagement
 public class TestConfig {
 
 
@@ -32,6 +31,13 @@ public class TestConfig {
     public DataSource getSecondaryDataSource() {
       return new DriverManagerDataSource("jdbc:h2:mem:test2;DB_CLOSE_DELAY=-1", "user", "password");
     }
+
+    @Bean
+    @Scope(value = "singleton") //scopes are by default "singleton" (one creation for the whole application)
+    public QuestionRepository jpaQuestionRepository(SessionFactory sessionFactory) {
+        return new JPAQuestionRepository(sessionFactory);
+    }
+
 
 
     @Bean("jpa.hibernate.properties")
@@ -55,9 +61,11 @@ public class TestConfig {
     }
 
     @Bean
-    public HibernateTransactionManager transactionManager(SessionFactory sessionFactory){
+    public HibernateTransactionManager transactionManager(SessionFactory sessionFactory,
+                                                          @Qualifier("services.data.datasource") DataSource dataSource){
         HibernateTransactionManager transactionManager = new HibernateTransactionManager();
         transactionManager.setSessionFactory(sessionFactory);
+        transactionManager.setDataSource(dataSource); // Enable DataSourceUtils connection binding
         return transactionManager;
     }
 

@@ -1,6 +1,7 @@
-package fr.epita.quiz.services;
+package fr.epita.quiz.services.impl.jdbc;
 
 import fr.epita.quiz.datamodel.Question;
+import fr.epita.quiz.services.Config;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
