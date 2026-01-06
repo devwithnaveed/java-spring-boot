@@ -5,11 +5,11 @@ import fr.epita.quiz.services.api.exceptions.PersistenceException;
 import jakarta.transaction.Transactional;
 import org.hibernate.SessionFactory;
 
-public abstract class JPAGenericRespository<T> implements Repository<T> {
+public abstract class JPAGenericRepository<T> implements Repository<T> {
 
     protected final SessionFactory sessionFactory;
 
-    public JPAGenericRespository(SessionFactory sessionFactory) {
+    public JPAGenericRepository(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
     }
 

@@ -9,7 +9,7 @@ import org.hibernate.query.Query;
 import java.util.List;
 
 public class JPAQuestionRepository
-        extends JPAGenericRespository<Question>
+        extends JPAGenericRepository<Question>
         implements QuestionRepository {
 
 
