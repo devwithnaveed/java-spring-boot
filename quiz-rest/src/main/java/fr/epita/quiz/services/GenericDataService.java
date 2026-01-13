@@ -33,11 +33,11 @@ public class GenericDataService {
     }
 
 
-    public Question getQuestion(Integer id) {
-        return null;
+    public Question getQuestion(Integer id) throws PersistenceException {
+        return this.questionRepository.findById(Question.class, id);
     }
 
     public List<MCQChoice> getChoices(Question question) {
-        return null;
+        return this.mcqChoiceRepo.findByQuestion(question);
     }
 }

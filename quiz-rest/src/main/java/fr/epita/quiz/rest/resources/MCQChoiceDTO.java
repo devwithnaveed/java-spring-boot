@@ -1,10 +1,14 @@
-package fr.epita.quiz.resources;
+package fr.epita.quiz.rest.resources;
 
 public class MCQChoiceDTO {
 
     Integer id;
     String choiceTitle;
     Boolean valid;
+
+    public MCQChoiceDTO(){
+
+    }
 
     public Integer getId() {
         return id;

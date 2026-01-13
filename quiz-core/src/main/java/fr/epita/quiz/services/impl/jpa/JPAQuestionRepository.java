@@ -25,4 +25,14 @@ public class JPAQuestionRepository
         query.setParameter("param", title+"%");
         return query.getResultList();
     }
+
+
+    @Override
+    public List<Question> getAllQuestionsWithLimit(int maxRow) throws PersistenceException {
+        Query<Question> query = this.sessionFactory
+                .getCurrentSession()
+                .createQuery("from Question ", Question.class)
+                .setMaxResults(maxRow);
+        return query.getResultList();
+    }
 }

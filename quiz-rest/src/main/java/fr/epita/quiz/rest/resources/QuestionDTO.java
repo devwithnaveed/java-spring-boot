@@ -1,4 +1,4 @@
-package fr.epita.quiz.resources;
+package fr.epita.quiz.rest.resources;
 
 
 
@@ -9,6 +9,10 @@ public class QuestionDTO {
     String title;
     List<MCQChoiceDTO> choices;
 
+
+    public QuestionDTO(){
+
+    }
 
     public Integer getId() {
         return id;

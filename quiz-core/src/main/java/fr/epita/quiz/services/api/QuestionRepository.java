@@ -9,4 +9,5 @@ public interface QuestionRepository extends Repository<Question> {
 
     List<Question> findByTitle(String title) throws PersistenceException;
 
+    List<Question> getAllQuestionsWithLimit(int maxRow) throws PersistenceException;
 }
